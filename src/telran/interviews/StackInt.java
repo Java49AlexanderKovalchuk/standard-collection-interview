@@ -5,50 +5,31 @@ import java.util.NoSuchElementException;
 
 public class StackInt {
 
-	private LinkedList<Integer> list;
-	private int max;
+	private LinkedList<Integer> numbers = new LinkedList<>();
+	private LinkedList<Integer> maxNumbers = new LinkedList<>(); 
 	
-	public StackInt() {
-		list = new LinkedList<>();
-		max = Integer.MIN_VALUE;
-	}
+	
 	public void push(int num) {
-		list.addFirst(num);  //-30  50 70
-		if(num > max) {
-			max = num;
+		numbers.add(num);
+		if(maxNumbers.isEmpty() || num >= maxNumbers.getLast()) {
+			maxNumbers.add(num);
 		}
-		
 	} 
 	
 	public int pop() {
-		if(isEmpty()) {
-			throw new NoSuchElementException();
-		}
-		int res = list.removeFirst();
-		if(res == max) {
-			getMax();
+		int res = numbers.removeLast();
+		if(res == maxNumbers.getLast()) {
+			maxNumbers.removeLast();
 		}
 		return res;
-		
-	}
-	private void getMax() {
-		max = Integer.MIN_VALUE;
-		for(int el: list) {
-			if(el > max) {
-				max = el;
-			}
-		}
 	}
 	
-	public  boolean isEmpty() {
-		
-		return list.isEmpty();  
-	}
+	public boolean isEmpty() {
+		return numbers.isEmpty();   
+	}								
+	
 	
 	public int max() {
-		if(isEmpty()) {
-			throw new NoSuchElementException();
-		}
-		return max;
+		return maxNumbers.getLast();
 	}
 }

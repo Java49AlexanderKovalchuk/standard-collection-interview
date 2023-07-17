@@ -2,43 +2,82 @@ package telran.interviews;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
-
+import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 class StackIntTest {
-StackInt stackInt = new StackInt();
-	
-@BeforeEach
-	void setUp() throws Exception {
-		stackInt.push(70);
-		stackInt.push(50);
-		stackInt.push(-30);
-		stackInt.push(100);
 
-	}
-
-	@Test
-	void isEmptyTest() {
-		assertFalse(stackInt.isEmpty());
-	}
+	private static final long N_NUMBERS = 10000;
+	private static final int MIN_NUMBER = 1;
+	private static final int MAX_NUMBER = 100;
+	LinkedList<Integer> list = new LinkedList<>();
+	StackInt stack = new StackInt();
+	StackInt stackEmpty = new StackInt();
+	Random gen = new Random();
 	
-	@Test
-	void popMaxTest() {
-		assertEquals(100, stackInt.pop());  //70, 50, -30, 100
-		assertEquals(70, stackInt.max());
-		assertEquals(-30, stackInt.pop());
-		assertEquals(70, stackInt.max());
-		assertEquals(50, stackInt.pop());
-		assertEquals(70, stackInt.max());
-		assertEquals(70, stackInt.pop());
+	@BeforeEach
+		void setUp() {
+		gen.ints(N_NUMBERS, MIN_NUMBER, MAX_NUMBER).
+		forEach(n -> {
+			stack.push(n);
+			list.add(n);
+		});
 		
-		assertTrue(stackInt.isEmpty());
-		assertThrowsExactly(NoSuchElementException.class,
-				() -> stackInt.pop());
-		assertThrowsExactly(NoSuchElementException.class,
-				() -> stackInt.max());
+	}
+	
+	@Test 
+	void testPop() {
+		assertEquals(list.removeLast(), stack.pop());
+		
+		assertThrows(NoSuchElementException.class, () -> stackEmpty.pop());
+	}
+	
+	@Test
+	void testIsEmpty() {
+		assertFalse(stack.isEmpty());
+		assertTrue(stackEmpty.isEmpty());
+	}
+	
+	@Test
+	void testGetMaxNumber() {
+		testRandom();
+		predefinedMaxTest();
+	}
+	
+	void testRandom() {
+		for(int i = 0; i < N_NUMBERS; i++) {
+			if(Math.random() * 100 < 50) {
+				try {
+					stack.pop();
+					list.removeLast();
+				} catch (Exception e) {
+					
+				}
+			}
+			else {
+				int number = gen.nextInt(MIN_NUMBER, MAX_NUMBER);
+				stack.push(number);
+				list.add(number);
+			}
+		}
+		assertEquals((int)Collections.max(list), stack.max());
+	}
+	
+	void predefinedMaxTest() {
+		int ar[] = {100000, 50000, 100000, 20, 20, 20, 2000000};
+		StackInt stack = new StackInt();
+		for(int i = 0; i < ar.length; i++) {
+			stack.push(ar[i]);
+		}
+		assertEquals(2000000, stack.max());
+		stack.pop(); stack.pop(); stack.pop();
+		assertEquals(100000, stack.max());
 	}
 	
 }
