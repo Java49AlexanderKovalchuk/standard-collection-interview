@@ -9,19 +9,20 @@ import java.util.HashMap;
  * @param <T>
  */
 public class MyArray<T> {
-	private T value = null;
+	private T allValues;
 	private int size;
-	HashMap<Integer , T> mapIndexValue = new HashMap<>();
-	
+	HashMap<Integer, T> mapOfSets;
 	public MyArray(int size) {
 		this.size = size;
+		mapOfSets = new HashMap<>();
 	}
 	/**
 	 * sets all array's elements with a given value
 	 * @param value
 	 */
 	public void setAll(T value) {
-		this.value = value;
+		mapOfSets = new HashMap<>();
+		allValues = value;
 	}
 	/**
 	 * 
@@ -29,8 +30,11 @@ public class MyArray<T> {
 	 * @return value at given index or null if index is wrong
 	 */
 	public T get(int index) {
-	
-		return isValidIndex(index) ? mapIndexValue.getOrDefault(index, value) : null;
+		T res = null;
+		if(index > -1 && index < size) {
+			res = mapOfSets.getOrDefault(index, allValues);
+		}
+		return res;
 		
 	}
 	
@@ -41,18 +45,10 @@ public class MyArray<T> {
 	 * @param value
 	 */
 	public void set(int index, T value) {
-		checkIndexWithException(index);
-		mapIndexValue.put(index, value);
-	}
-	
-	private boolean isValidIndex(int index) {
-	
-		return index >= 0 && index < size;
-	}
-	
-	private void checkIndexWithException(int index) {
-		if(!isValidIndex(index)) {
-			throw new IndexOutOfBoundsException("Index isn't valid");
+		if(index < 0 || index >= size) {
+			throw new ArrayIndexOutOfBoundsException(index);
 		}
+		mapOfSets.put(index, value);
 	}
+	
 }

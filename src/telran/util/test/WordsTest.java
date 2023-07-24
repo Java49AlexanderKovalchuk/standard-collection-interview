@@ -2,6 +2,11 @@ package telran.util.test;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,14 +40,6 @@ class WordsTest {
 			assertArrayEquals(wordsStartAB, elasticSearch.getWordsByPrefix("ab").toArray(String[]::new));
 			assertArrayEquals(wordsStartAsteric, elasticSearch.getWordsByPrefix("*").toArray(String[]::new));
 			
-		}
-		@Test
-		void check() {
-			System.out.println("as".charAt(1));
-			char q = "df".charAt(0);
-			System.out.println(q);
-			String prefix = "a";
-			System.out.println(prefix.substring(0, prefix.length() - 1));
 		}
 		
 }

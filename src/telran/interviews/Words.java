@@ -26,10 +26,8 @@ public class Words {
 	 */
 	public List<String> getWordsByPrefix(String prefix) {
 		
-		//SortedSet<String> subSetWord = treeSetWord.subSet(prefix, prefix + Character.toString(126));		
 		String lim = getPrefixLimit(prefix);
-		SortedSet<String> subSetWord = treeSetWord.subSet(prefix, lim);	
-		return Arrays.asList(subSetWord.toArray(String[]::new));
+		return new ArrayList<>(treeSetWord.subSet(prefix, lim));
 	}
 	private String getPrefixLimit(String prefix) {
 		char lastPref = prefix.charAt(prefix.length() - 1);
