@@ -28,17 +28,15 @@ class StreamTasksTests {
 	}
 
 
-	@Test     //printing for 1-st way's method
-	void printDigitStatTest() {
-		System.out.println("Statistics of digits occurrences, WAY1:");
-		printDidigitStatistics(1_000_000);
+	@Test     
+	void digitStatTest() {
+		System.out.println("Statistics of digits occurrences");
+		displayDigitStatistics();
 		
-		
-  	}
-	@Test     //printing for 2-nd way's method
-	void printDigitStatTest2() {
-		System.out.println("\nStatistics of digits occurrences, WAY2:");
-		printDigitStatistics2(1_000_000);
 	}
-		
+	
+	@Test
+	void digitStattest2( ) {
+		displayDigitStatistics2();
+	}
 }
