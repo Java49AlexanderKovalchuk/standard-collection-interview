@@ -1,8 +1,15 @@
 package telran.interviews;
 
+import static telran.interviews.StreamTasks.getRandomPersonsMap;
+
 import java.util.Arrays;
 import java.util.Random;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 public class StreamTasks {
 	static public void displayOccurances(String [] strings)  {
@@ -55,5 +62,18 @@ public class StreamTasks {
 		.forEach(entry -> System.out.printf("%s: %s\n", entry.getKey(), entry.getValue()));
 	
 	}
+	
+	public static Map<Integer, Person> getRandomPersonsMap(int nPersons) {
+		return new Random().ints(1000, 2001).distinct()
+		.limit(nPersons).mapToObj(id -> new Person(id, "name" + id))
+		.collect(Collectors.toMap(p -> p.id(), p -> p, (p, u) -> p, TreeMap::new));
+	
+	 }
+	
 }
+
+record  Person(Integer id, String name) {}
+
+ 
+
  

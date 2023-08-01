@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
 import static telran.interviews.StreamTasks.*;
 
+import java.util.Map;
+import telran.interviews.*;
 class StreamTasksTests {
 
 	@BeforeEach
@@ -39,4 +42,12 @@ class StreamTasksTests {
 	void digitStattest2( ) {
 		displayDigitStatistics2();
 	}
+	
+
 }
+
+
+
+
+
+
